@@ -17,7 +17,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = 'mongodb://localhost:27017/yelp-camp' || process.env.DB_URL;
 
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campaground');
@@ -163,6 +163,8 @@ app.use((err, req, res, next) => {
 	res.status(statusCode).render('error', { err });
 });
 
-app.listen(8080, () => {
-	console.log('APP IS LISTENING ON PORT 8080!');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+	console.log(`APP IS LISTENING ON PORT ${port}!`);
 });
